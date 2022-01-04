@@ -23,4 +23,8 @@ func ValidateBook(v *validator.Validator, book *Book) {
 	// year validation
 	v.Check(book.year !=0, "year", "must be a valid year")
 	v.Check(book.year <= int32(time.Now().Year()), "year", "must not be in the future")
+
+	// ISBN validation
+	v.Check(book.ISBN != "", "isbn", "must not be empty")
+	v.Check(len(book.ISBN) <= 5, "isbn", "must be more than 5 character")
 }
