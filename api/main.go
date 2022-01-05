@@ -5,11 +5,13 @@ import (
 	"database/sql"
 	"flag"
 	"fmt"
-	_ "github.com/lib/pq"
 	"log"
 	"net/http"
 	"os"
 	"time"
+
+	_ "github.com/lib/pq"
+	"github.com/mhope-2/api_with_go/internal/data"
 )
 
 const version = "1.0.0"
@@ -26,6 +28,7 @@ type Config struct {
 type Application struct {
 	config Config
 	logger *log.Logger
+	models data.Models
 }
 
 func main() {
@@ -63,6 +66,7 @@ func main() {
 	app := Application{
 		config: cfg,
 		logger: logger,
+		models: data.NewModels(db),
 	}
 
 	// use the httprouter instance returned by app.routes() as the server handler.
@@ -70,8 +74,8 @@ func main() {
 		Addr:         fmt.Sprintf(":%d", cfg.port),
 		Handler:      app.routes(),
 		IdleTimeout:  time.Minute,
-		ReadTimeout:  time.Second,
-		WriteTimeout: time.Second,
+		ReadTimeout:  10 * time.Second,
+		WriteTimeout: 30 * time.Second,
 	}
 
 	// Start the HTTP Server

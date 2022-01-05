@@ -33,8 +33,6 @@ func (app *Application) createBookHandler(w http.ResponseWriter, r *http.Request
 		Title:     input.Title,
 		ISBN:      input.ISBN,
 		Year:      input.Year,
-		CreatedAt: time.Now(),
-		UpdatedAt: time.Now(),
 	}
 
 	// Initialize a new Validator.
