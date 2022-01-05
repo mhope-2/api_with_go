@@ -1,7 +1,7 @@
 package database
 
 import (
-	"github.com/mhope-2/internal/validator"
+	"github.com/mhope-2/api_with_go/internal/validator"
 	"time"
 )
 
