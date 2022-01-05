@@ -5,6 +5,7 @@ import (
 	"time"
 )
 
+
 type Book struct {
 	ID        int64     `json:"id"`
 	Title     string    `json:"title"`
@@ -21,8 +22,8 @@ func ValidateBook(v *validator.Validator, book *Book) {
 	v.Check(len(book.Title) <= 100, "title", "must not be more than 100 characters")
 
 	// year validation
-	v.Check(book.year !=0, "year", "must be a valid year")
-	v.Check(book.year <= int32(time.Now().Year()), "year", "must not be in the future")
+	v.Check(book.Year !=0, "year", "must be a valid year")
+	v.Check(book.Year <= int32(time.Now().Year()), "year", "must not be in the future")
 
 	// ISBN validation
 	v.Check(book.ISBN != "", "isbn", "must not be empty")
