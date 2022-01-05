@@ -8,7 +8,7 @@ RUN go mod download
 
 COPY . .
 
-RUN go build -o ./out/main .
+RUN go build -o=./out ./api
 
 CMD ./out/main
 
