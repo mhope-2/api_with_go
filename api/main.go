@@ -5,6 +5,7 @@ import (
 	"database/sql"
 	"flag"
 	"fmt"
+	_ "github.com/lib/pq"
 	"log"
 	"net/http"
 	"os"
@@ -30,10 +31,8 @@ type Application struct {
 func main() {
 
 	// setting env variables manually (improvement: will use go dotenv external package)
-	// os.Setenv("DSN", "KASIMUDEY")
-
-	// getting env variable
-	// fmt.Println(os.Getenv("DSN"))
+	os.Setenv("DSN", "postgres://postgres:postgres@localhost/postgres")
+	fmt.Println(os.Getenv("DSN"))
 
 	// declare an instance of the config struct
 	var cfg Config
@@ -41,7 +40,7 @@ func main() {
 	// initializing config varibles
 	flag.IntVar(&cfg.port, "port", 4000, "API server port")
 	flag.StringVar(&cfg.env, "env", "development", "Environment (development|staging|production)")
-	flag.StringVar(&cfg.db.dsn, "dsn", os.Getenv("DSN"), "PostgreSQL DSN")
+	flag.StringVar(&cfg.db.dsn, "dsn", os.Getenv("DSN"), "PostgreSQL DSN") // load dynamically from env variables
 
 	flag.Parse()
 
@@ -75,8 +74,8 @@ func main() {
 		WriteTimeout: time.Second,
 	}
 
-	// Start the HTTP
-	logger.Printf("starting %s server on %s", cfg.env, srv.Addr)
+	// Start the HTTP Server
+	logger.Printf("starting %s server on port %s", cfg.env, srv.Addr)
 	err = srv.ListenAndServe()
 	logger.Fatal(err)
 
