@@ -1,13 +1,13 @@
 package main
 
 import (
+	"context"
+	"database/sql"
 	"flag"
 	"fmt"
 	"log"
-	"context"
-	"database/sql"
-	"os"
 	"net/http"
+	"os"
 	"time"
 )
 
@@ -82,17 +82,15 @@ func main() {
 
 }
 
-
-
 /**
 * function to open db connection
 * reurns sql.DB connection pool, error
-*/
-func openDB(cfg Config) (*sql.DB, error){
+ */
+func openDB(cfg Config) (*sql.DB, error) {
 	// create empty connection pool
 	db, err := sql.Open("postgres", cfg.db.dsn)
 
-	if err != nil{
+	if err != nil {
 		return nil, err
 	}
 
@@ -102,11 +100,10 @@ func openDB(cfg Config) (*sql.DB, error){
 
 	// use PingContext to establish a new connection to the database
 	err = db.PingContext(ctx)
-	if err != nil{
+	if err != nil {
 		return nil, err
 	}
 
 	// return the sql.DB connection pool
 	return db, nil
 }
-
