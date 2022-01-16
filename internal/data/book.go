@@ -34,11 +34,11 @@ func ValidateBook(v *validator.Validator, book *Book) {
 type MockBookModel struct{}
 
 // Define a MovieModel struct type which wraps a sql.DB connection pool.
-type MovieModel struct {
+type BookModel struct {
 	DB *sql.DB
 }
 
-func (b MovieModel) Insert(book *Book) error {
+func (b BookModel) Insert(book *Book) error {
 	// Define the SQL query for inserting a new record in the movies table and returning
 	// the system-generated data.
 	query := `
@@ -58,17 +58,17 @@ func (b MovieModel) Insert(book *Book) error {
 	return b.DB.QueryRow(query, args...).Scan(&book.ID, &book.ISBN, &book.CreatedAt)
 }
 
-func (m MovieModel) Get(id int64) (*Book, error) {
+func (m BookModel) Get(id int64) (*Book, error) {
 // Mock the action...
 	return nil,nil
 }
 
-func (m MovieModel) Update(Book *Book) error {
+func (m BookModel) Update(Book *Book) error {
 // Mock the action...
 	return nil
 }
 
-func (m MovieModel) Delete(id int64) error {
+func (m BookModel) Delete(id int64) error {
 // Mock the action...
 	return nil
 }

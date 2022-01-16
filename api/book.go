@@ -47,7 +47,7 @@ func (app *Application) createBookHandler(w http.ResponseWriter, r *http.Request
 	}
 
 	// insert book record into model
-	err = app.data.Movies.Insert(book)
+	err = app.models.Books.Insert(book)
 	if err != nil {
 		app.serverErrorResponse(w, r, err)
 		return
